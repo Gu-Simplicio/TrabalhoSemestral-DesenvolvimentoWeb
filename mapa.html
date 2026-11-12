@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de faculdades públicas</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body class="map-page">
+    <header class="site-header">
+        <a class="site-title" href="index.html">Faculdades públicas</a>
+        <nav aria-label="Navegação principal">
+            <ul class="site-navigation">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="mapa.html" aria-current="page">Mapa</a></li>
+                <li><a href="sobre-faculdades.html">Sobre faculdades</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="map-container" class="map-container" aria-label="Mapa de faculdades públicas">
+        <p class="map-loading">Carregando mapa...</p>
+    </main>
+
+    <script>
+        window.mapApiLoadStartedAt = Date.now();
+        window.mapApiLoaded = false;
+        window.mapApiFailed = false;
+
+        window.mapApiLoadedCallback = function () {
+            window.mapApiLoaded = true;
+            window.dispatchEvent(new Event("map-api-loaded"));
+        };
+
+        window.mapApiErrorCallback = function () {
+            window.mapApiFailed = true;
+            window.dispatchEvent(new Event("map-api-error"));
+        };
+    </script>
+    <script type="module" src="js/mapa.js"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=COLOQUE_SUA_CHAVE_AQUI&amp;callback=mapApiLoadedCallback"
+        async
+        defer
+        onerror="window.mapApiErrorCallback()"
+    ></script>
+</body>
+</html>
